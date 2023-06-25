@@ -1,0 +1,22 @@
+@use "sass:map";
+
+$breakpoints-width: (
+    s: 320,
+    xs: 375,
+    os: 414,
+    sm: 576,
+    md: 768,
+    lg: 992,
+    xl: 1024,
+    xxl: 1280,
+    xxxl: 1920
+);
+
+@function adaptive-size($max-size, $min-size) {
+    $add-size: $max-size - $min-size;
+    $min-width: map.get($breakpoints-width, "s");
+    $max-width: map.get($breakpoints-width, "xxxl");
+    $diff-size: $max-width - $min-width;
+
+    @return calc(#{$min-size + px} + #{$add-size} * ((100vw - 320px) / #{$diff-size}));
+}
